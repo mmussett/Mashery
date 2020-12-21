@@ -1,0 +1,5 @@
+.mashbash/.env
+*.json
+.gitignore
+.dockerignore
+Dockerfile

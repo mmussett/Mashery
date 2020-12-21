@@ -1,0 +1,426 @@
+{
+    "imports": [
+        "github.com/project-flogo/flow",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/rest",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/log",
+        "github.com/project-flogo/contrib/activity/actreturn",
+        "rest_1 git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/trigger/rest",
+        "github.com/project-flogo/contrib/function/string",
+        "github.com/project-flogo/contrib/function/coerce"
+    ],
+    "name": "New_Flogo_App_4",
+    "description": "",
+    "version": "1.0.0",
+    "type": "flogo:app",
+    "appModel": "1.1.1",
+    "triggers": [
+        {
+            "ref": "#rest_1",
+            "name": "tibco-wi-rest",
+            "description": "Simple REST Trigger",
+            "settings": {
+                "port": 9999,
+                "APISpecUpdate": false,
+                "swagger": "",
+                "secureConnection": false,
+                "serverKey": "",
+                "caCertificate": ""
+            },
+            "id": "ReceiveHTTPMessage",
+            "handlers": [
+                {
+                    "description": "",
+                    "settings": {
+                        "Method": "GET",
+                        "Path": "/get",
+                        "OutputValidation": false
+                    },
+                    "action": {
+                        "ref": "github.com/project-flogo/flow",
+                        "settings": {
+                            "flowURI": "res://flow:InvokeAPI"
+                        },
+                        "input": {
+                            "queryParams": {
+                                "mapping": {
+                                    "foo3": "=$.queryParams.foo3"
+                                }
+                            }
+                        },
+                        "output": {
+                            "code": "=$.code",
+                            "data": "=$.data"
+                        }
+                    },
+                    "reply": {
+                        "code": 200,
+                        "configureResponseCodes": false,
+                        "message": {}
+                    },
+                    "schemas": {
+                        "reply": {
+                            "data": {
+                                "type": "json",
+                                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"args\":{\"type\":\"object\",\"properties\":{\"foo3\":{\"type\":\"string\"},\"foo1\":{\"type\":\"string\"},\"foo2\":{\"type\":\"string\"}}},\"headers\":{\"type\":\"object\",\"properties\":{\"x-forwarded-proto\":{\"type\":\"string\"},\"x-forwarded-port\":{\"type\":\"string\"},\"host\":{\"type\":\"string\"},\"x-amzn-trace-id\":{\"type\":\"string\"},\"accept\":{\"type\":\"string\"},\"api_key\":{\"type\":\"string\"},\"accept-encoding\":{\"type\":\"string\"},\"postman-token\":{\"type\":\"string\"},\"user-agent\":{\"type\":\"string\"},\"cookie\":{\"type\":\"string\"},\"authorization\":{\"type\":\"string\"},\"x-original-user-agent\":{\"type\":\"string\"},\"x-mashery-host\":{\"type\":\"string\"},\"x-mashery-service-key\":{\"type\":\"string\"},\"x-mashery-message-id\":{\"type\":\"string\"},\"x-mashery-oauth-access-token\":{\"type\":\"string\"},\"x-mashery-oauth-scope\":{\"type\":\"string\"},\"x-mashery-oauth-user-context\":{\"type\":\"string\"},\"x-mashery-oauth-client-id\":{\"type\":\"string\"}}},\"url\":{\"type\":\"string\"}}}",
+                                "fe_metadata": "{\n    \"args\": {\n        \"foo3\": \"bar3\",\n        \"foo1\": \"bar1\",\n        \"foo2\": \"bar2\"\n    },\n    \"headers\": {\n        \"x-forwarded-proto\": \"https\",\n        \"x-forwarded-port\": \"443\",\n        \"host\": \"postman-echo.com\",\n        \"x-amzn-trace-id\": \"Root=1-5f0c9781-821fdab70dbbced8d25d0614\",\n        \"accept\": \"*/*\",\n        \"api_key\": \"yz8vqwuey9jefxjmxdrntx9m\",\n        \"accept-encoding\": \"gzip, deflate, br\",\n        \"postman-token\": \"280791f9-e58b-474d-bf3e-f1b3842f5002\",\n        \"user-agent\": \"Mashery Proxy\",\n        \"cookie\": \"sails.sid=s%3AD2meCZRqVPidrtOYHrHyOYJ4LdBbJcZu.rAW4K0%2FO%2BLa%2BMuB%2BzyKnAZlPo6b8PdvDY4r0qfVwpVE\",\n        \"authorization\": \"Bearer e4mv258mane85z3v8r5qp4wf\",\n        \"x-original-user-agent\": \"PostmanRuntime/7.26.1\",\n        \"x-mashery-host\": \"emeapresalesnorth.api.mashery.com\",\n        \"x-mashery-service-key\": \"v3b289aatftzrztzzkgf4jyn\",\n        \"x-mashery-message-id\": \"ca2d0c71-3e60-4fb4-9427-dcbe8bdca7a3\",\n        \"x-mashery-oauth-access-token\": \"e4mv258mane85z3v8r5qp4wf\",\n        \"x-mashery-oauth-scope\": \"read:org\",\n        \"x-mashery-oauth-user-context\": \"\",\n        \"x-mashery-oauth-client-id\": \"yz8vqwuey9jefxjmxdrntx9m\"\n    },\n    \"url\": \"https://postman-echo.com/get?foo3=bar3&foo1=bar1&foo2=bar2\"\n}"
+                            },
+                            "responseBody": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}",
+                                "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}"
+                            }
+                        },
+                        "output": {
+                            "queryParams": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"foo3\":{\"type\":\"string\"}},\"required\":[]}",
+                                "fe_metadata": "[{\"parameterName\":\"foo3\",\"type\":\"string\",\"repeating\":\"\",\"required\":\"\"}]"
+                            },
+                            "headers": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                                "fe_metadata": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                            }
+                        }
+                    },
+                    "name": "InvokeAPI"
+                }
+            ]
+        }
+    ],
+    "resources": [
+        {
+            "id": "flow:InvokeAPI",
+            "data": {
+                "name": "InvokeAPI",
+                "description": "",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "GetAccessToken",
+                        "to": "LogAccessTokenResponseMessage",
+                        "type": "default"
+                    },
+                    {
+                        "id": 2,
+                        "from": "LogAccessTokenResponseMessage",
+                        "to": "InvokeAPIEndpoint",
+                        "type": "default"
+                    },
+                    {
+                        "id": 3,
+                        "from": "InvokeAPIEndpoint",
+                        "to": "LogMessage",
+                        "type": "default"
+                    },
+                    {
+                        "id": 4,
+                        "from": "LogMessage",
+                        "to": "Return",
+                        "type": "default"
+                    },
+                    {
+                        "id": 5,
+                        "from": "InvokeAPIEndpoint",
+                        "to": "LogMessage1",
+                        "type": "expression",
+                        "label": "InvokeRESTServiceto",
+                        "value": "$activity[InvokeAPIEndpoint].statusCode != 200"
+                    },
+                    {
+                        "id": 6,
+                        "from": "LogMessage1",
+                        "to": "Return1",
+                        "type": "default"
+                    },
+                    {
+                        "id": 7,
+                        "from": "GetAccessToken",
+                        "to": "LogGetAccessTokenError",
+                        "type": "expression",
+                        "label": "GetAccessTokento",
+                        "value": "$activity[GetAccessToken].statusCode != 200"
+                    },
+                    {
+                        "id": 8,
+                        "from": "LogGetAccessTokenError",
+                        "to": "Return2",
+                        "type": "default"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "GetAccessToken",
+                        "name": "GetAccessToken",
+                        "description": "Simple REST Activity",
+                        "settings": {
+                            "retryOnError": {
+                                "count": 0,
+                                "interval": 0
+                            }
+                        },
+                        "activity": {
+                            "ref": "#rest",
+                            "input": {
+                                "enableASR": false,
+                                "serviceName": "",
+                                "resourcePath": "",
+                                "Method": "POST",
+                                "Uri": "https://emeapresalesnorth.api.mashery.com/v1/get/oauth2/token",
+                                "Timeout": 0,
+                                "requestType": "text/plain",
+                                "Use certificate for verification": false,
+                                "Server Certificate": "",
+                                "proxy": "",
+                                "host": "",
+                                "headers": {
+                                    "mapping": {
+                                        "Content-Type": "application/x-www-form-urlencoded"
+                                    }
+                                },
+                                "body": {
+                                    "mapping": {
+                                        "data": "=string.concat(\"grant_type=password&scope=read&username=\",$property[\"username\"],\"&password=\",$property[\"password\"])"
+                                    }
+                                }
+                            },
+                            "output": {
+                                "configureResponseCodes": false,
+                                "responseType": "application/json"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                                        "fe_metadata": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                                    },
+                                    "body": {
+                                        "type": "json",
+                                        "value": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"string\"\n    }\n  },\n  \"type\": \"object\"\n}",
+                                        "fe_metadata": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"string\"\n    }\n  },\n  \"type\": \"object\"\n}"
+                                    }
+                                },
+                                "output": {
+                                    "responseBody": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"access_token\":{\"type\":\"string\"},\"token_type\":{\"type\":\"string\"},\"expires_in\":{\"type\":\"number\"},\"refresh_token\":{\"type\":\"string\"},\"scope\":{\"type\":\"string\"}}}",
+                                        "fe_metadata": "{\"access_token\":\"n8vhtgmcm23bsy7jesrz3m4d\",\"token_type\":\"bearer\",\"expires_in\":180,\"refresh_token\":\"nwutusm9af995wj5aw6hakpb\",\"scope\":\"read:org\"}"
+                                    },
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                                        "fe_metadata": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogAccessTokenResponseMessage",
+                        "name": "LogAccessTokenResponseMessage",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=coerce.toString($activity[GetAccessToken].responseBody)"
+                            }
+                        }
+                    },
+                    {
+                        "id": "InvokeAPIEndpoint",
+                        "name": "InvokeAPIEndpoint",
+                        "description": "Simple REST Activity",
+                        "settings": {
+                            "retryOnError": {
+                                "count": 0,
+                                "interval": 0
+                            }
+                        },
+                        "activity": {
+                            "ref": "#rest",
+                            "input": {
+                                "enableASR": false,
+                                "serviceName": "",
+                                "resourcePath": "",
+                                "Method": "GET",
+                                "Uri": "https://emeapresalesnorth.api.mashery.com/v1/get",
+                                "Timeout": 0,
+                                "requestType": "application/json",
+                                "Use certificate for verification": false,
+                                "Server Certificate": "",
+                                "proxy": "",
+                                "host": "",
+                                "headers": {
+                                    "mapping": {
+                                        "Authorization": "=string.concat(\"Bearer \",$activity[GetAccessToken].responseBody.access_token)"
+                                    }
+                                }
+                            },
+                            "output": {
+                                "configureResponseCodes": false,
+                                "responseType": "application/json"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"Authorization\":{\"type\":\"string\"},\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[\"Authorization\"]}",
+                                        "fe_metadata": "[{\"parameterName\":\"Authorization\",\"type\":\"string\",\"repeating\":\"\",\"required\":\"true\"},{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                                    }
+                                },
+                                "output": {
+                                    "responseBody": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"args\":{\"type\":\"object\",\"properties\":{\"foo3\":{\"type\":\"string\"},\"foo1\":{\"type\":\"string\"},\"foo2\":{\"type\":\"string\"}}},\"headers\":{\"type\":\"object\",\"properties\":{\"x-forwarded-proto\":{\"type\":\"string\"},\"x-forwarded-port\":{\"type\":\"string\"},\"host\":{\"type\":\"string\"},\"x-amzn-trace-id\":{\"type\":\"string\"},\"accept\":{\"type\":\"string\"},\"api_key\":{\"type\":\"string\"},\"accept-encoding\":{\"type\":\"string\"},\"postman-token\":{\"type\":\"string\"},\"user-agent\":{\"type\":\"string\"},\"cookie\":{\"type\":\"string\"},\"authorization\":{\"type\":\"string\"},\"x-original-user-agent\":{\"type\":\"string\"},\"x-mashery-host\":{\"type\":\"string\"},\"x-mashery-service-key\":{\"type\":\"string\"},\"x-mashery-message-id\":{\"type\":\"string\"},\"x-mashery-oauth-access-token\":{\"type\":\"string\"},\"x-mashery-oauth-scope\":{\"type\":\"string\"},\"x-mashery-oauth-user-context\":{\"type\":\"string\"},\"x-mashery-oauth-client-id\":{\"type\":\"string\"}}},\"url\":{\"type\":\"string\"}}}",
+                                        "fe_metadata": "{\n    \"args\": {\n        \"foo3\": \"bar3\",\n        \"foo1\": \"bar1\",\n        \"foo2\": \"bar2\"\n    },\n    \"headers\": {\n        \"x-forwarded-proto\": \"https\",\n        \"x-forwarded-port\": \"443\",\n        \"host\": \"postman-echo.com\",\n        \"x-amzn-trace-id\": \"Root=1-5f0c9781-821fdab70dbbced8d25d0614\",\n        \"accept\": \"*/*\",\n        \"api_key\": \"yz8vqwuey9jefxjmxdrntx9m\",\n        \"accept-encoding\": \"gzip, deflate, br\",\n        \"postman-token\": \"280791f9-e58b-474d-bf3e-f1b3842f5002\",\n        \"user-agent\": \"Mashery Proxy\",\n        \"cookie\": \"sails.sid=s%3AD2meCZRqVPidrtOYHrHyOYJ4LdBbJcZu.rAW4K0%2FO%2BLa%2BMuB%2BzyKnAZlPo6b8PdvDY4r0qfVwpVE\",\n        \"authorization\": \"Bearer e4mv258mane85z3v8r5qp4wf\",\n        \"x-original-user-agent\": \"PostmanRuntime/7.26.1\",\n        \"x-mashery-host\": \"emeapresalesnorth.api.mashery.com\",\n        \"x-mashery-service-key\": \"v3b289aatftzrztzzkgf4jyn\",\n        \"x-mashery-message-id\": \"ca2d0c71-3e60-4fb4-9427-dcbe8bdca7a3\",\n        \"x-mashery-oauth-access-token\": \"e4mv258mane85z3v8r5qp4wf\",\n        \"x-mashery-oauth-scope\": \"read:org\",\n        \"x-mashery-oauth-user-context\": \"\",\n        \"x-mashery-oauth-client-id\": \"yz8vqwuey9jefxjmxdrntx9m\"\n    },\n    \"url\": \"https://postman-echo.com/get?foo3=bar3&foo1=bar1&foo2=bar2\"\n}"
+                                    },
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                                        "fe_metadata": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogMessage",
+                        "name": "LogMessage",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=coerce.toString($activity[InvokeAPIEndpoint].responseBody)"
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return",
+                        "name": "Return",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "data": "=$activity[InvokeAPIEndpoint].responseBody",
+                                    "code": 200
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogMessage1",
+                        "name": "LogMessage1",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "ERROR",
+                                "flowInfo": false,
+                                "message": "Call failed"
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return1",
+                        "name": "Return1",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 500
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogGetAccessTokenError",
+                        "name": "LogGetAccessTokenError",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "ERROR",
+                                "flowInfo": false,
+                                "message": "Failed to get Access Token"
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return2",
+                        "name": "Return2",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 500
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [
+                        {
+                            "name": "queryParams",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"foo3\":{\"type\":\"string\"}}"
+                            }
+                        },
+                        {
+                            "name": "headers",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}}"
+                            }
+                        }
+                    ],
+                    "output": [
+                        {
+                            "name": "code",
+                            "type": "integer"
+                        },
+                        {
+                            "name": "data",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"args\":{\"type\":\"object\",\"properties\":{\"foo3\":{\"type\":\"string\"},\"foo1\":{\"type\":\"string\"},\"foo2\":{\"type\":\"string\"}}},\"headers\":{\"type\":\"object\",\"properties\":{\"x-forwarded-proto\":{\"type\":\"string\"},\"x-forwarded-port\":{\"type\":\"string\"},\"host\":{\"type\":\"string\"},\"x-amzn-trace-id\":{\"type\":\"string\"},\"accept\":{\"type\":\"string\"},\"api_key\":{\"type\":\"string\"},\"accept-encoding\":{\"type\":\"string\"},\"postman-token\":{\"type\":\"string\"},\"user-agent\":{\"type\":\"string\"},\"cookie\":{\"type\":\"string\"},\"authorization\":{\"type\":\"string\"},\"x-original-user-agent\":{\"type\":\"string\"},\"x-mashery-host\":{\"type\":\"string\"},\"x-mashery-service-key\":{\"type\":\"string\"},\"x-mashery-message-id\":{\"type\":\"string\"},\"x-mashery-oauth-access-token\":{\"type\":\"string\"},\"x-mashery-oauth-scope\":{\"type\":\"string\"},\"x-mashery-oauth-user-context\":{\"type\":\"string\"},\"x-mashery-oauth-client-id\":{\"type\":\"string\"}}},\"url\":{\"type\":\"string\"}}"
+                            }
+                        }
+                    ],
+                    "fe_metadata": {
+                        "input": "{\"type\":\"object\",\"title\":\"ReceiveHTTPMessage\",\"properties\":{\"queryParams\":{\"type\":\"object\",\"properties\":{\"foo3\":{\"type\":\"string\"}},\"required\":[]},\"headers\":{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}}}",
+                        "output": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"data\":{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"args\":{\"type\":\"object\",\"properties\":{\"foo3\":{\"type\":\"string\"},\"foo1\":{\"type\":\"string\"},\"foo2\":{\"type\":\"string\"}}},\"headers\":{\"type\":\"object\",\"properties\":{\"x-forwarded-proto\":{\"type\":\"string\"},\"x-forwarded-port\":{\"type\":\"string\"},\"host\":{\"type\":\"string\"},\"x-amzn-trace-id\":{\"type\":\"string\"},\"accept\":{\"type\":\"string\"},\"api_key\":{\"type\":\"string\"},\"accept-encoding\":{\"type\":\"string\"},\"postman-token\":{\"type\":\"string\"},\"user-agent\":{\"type\":\"string\"},\"cookie\":{\"type\":\"string\"},\"authorization\":{\"type\":\"string\"},\"x-original-user-agent\":{\"type\":\"string\"},\"x-mashery-host\":{\"type\":\"string\"},\"x-mashery-service-key\":{\"type\":\"string\"},\"x-mashery-message-id\":{\"type\":\"string\"},\"x-mashery-oauth-access-token\":{\"type\":\"string\"},\"x-mashery-oauth-scope\":{\"type\":\"string\"},\"x-mashery-oauth-user-context\":{\"type\":\"string\"},\"x-mashery-oauth-client-id\":{\"type\":\"string\"}}},\"url\":{\"type\":\"string\"}}}},\"required\":[]}"
+                    }
+                },
+                "explicitReply": true
+            }
+        }
+    ],
+    "properties": [
+        {
+            "name": "password",
+            "type": "string",
+            "value": "SECRET:TUo+ncQ/vjHG2uGHQnEeqaJ32rIAdQ=="
+        },
+        {
+            "name": "username",
+            "type": "string",
+            "value": "SECRET:sWE8a0XrrJ/Jkh68Wg/A7+TRehjuew=="
+        }
+    ],
+    "connections": {},
+    "contrib": "W3sicmVmIjoiZ2l0LnRpYmNvLmNvbS9naXQvcHJvZHVjdC9pcGFhcy93aS1jb250cmliLmdpdC9jb250cmlidXRpb25zL0dlbmVyYWwiLCJzM2xvY2F0aW9uIjoiVGliY28vR2VuZXJhbCJ9XQ==",
+    "fe_metadata": "UEsDBAoAAAAIAMVC9VCrqSRGFQAAABMAAAAIAAAAYXBwLmpzb26rViopykxPTy1yy8kvL1ayio6tBQBQSwECFAAKAAAACADFQvVQq6kkRhUAAAATAAAACAAAAAAAAAAAAAAAAAAAAAAAYXBwLmpzb25QSwUGAAAAAAEAAQA2AAAAOwAAAAAA"
+}
